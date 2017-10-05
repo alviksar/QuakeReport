@@ -41,9 +41,18 @@ public class Earthquake {
         return mPlace;
     }
 
-    public String getTimeStr() {
+    public String getDate() {
         // DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         DateFormat df = new SimpleDateFormat("MMM d, yyyy");
+        if (mTime != null)
+            return df.format(mTime);
+        else
+            return "";
+    }
+
+    public String getTime() {
+        // DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        DateFormat df = new SimpleDateFormat("HH:mm:ss");
         if (mTime != null)
             return df.format(mTime);
         else
