@@ -1,7 +1,9 @@
 package com.example.android.quakereport;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,7 +22,7 @@ import java.util.List;
 
 public class EarthquakeArrayAdapter extends ArrayAdapter<Earthquake> {
 
-    Context mContext;
+    private Context mContext;
 
     public EarthquakeArrayAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Earthquake> objects) {
         super(context, 0, objects);
@@ -43,7 +45,7 @@ public class EarthquakeArrayAdapter extends ArrayAdapter<Earthquake> {
         // Get the object located at this position in the list
         Earthquake current = getItem(position);
 
-        // Find TextView in the my_list_item.xmlxml layout
+        // Find TextView in the my_list_item.xml layout
         TextView magView = (TextView) listItemView.findViewById(R.id.mag_text_view);
 
         // Set the proper background color on the magnitude circle.
@@ -69,7 +71,7 @@ public class EarthquakeArrayAdapter extends ArrayAdapter<Earthquake> {
         dateView.setText(current.getDate());
         timeView.setText(current.getTime());
         /*
-        // Find the ImageView in the my_list_item.xmlxml layout with the ID list_item_icon
+        // Find the ImageView in the my_list_item.xml layout with the ID list_item_icon
         ImageView imageView = (ImageView) listItemView.findViewById(R.id.image4word);
         // Get the image resource ID from the current AndroidFlavor object and
         // set the image to iconView
@@ -84,16 +86,7 @@ public class EarthquakeArrayAdapter extends ArrayAdapter<Earthquake> {
             imageView.setVisibility(View.GONE);
         }
         */
-/*
-        // Set the theme color for the list item
-        View textContainer = listItemView.findViewById(R.id.text_layout);
-        // Find the color that the resource ID maps to
-        int color = ContextCompat.getColor(getContext(), mBackgroundColor);
-        // Set the background color of the text container View
-        textContainer.setBackgroundColor(color);
-*/
-        // Return the whole list item layout (containing 2 TextViews and an ImageView)
-        // so that it can be shown in the ListView
+
         return listItemView;
 
        // return super.getView(position, convertView, parent);

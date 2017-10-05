@@ -63,7 +63,8 @@ public final class QueryUtils {
                 double mag = e.getDouble("mag");
                 String place = e.getString("place");
                 long time = e.getLong("time");
-                earthquakes.add(new Earthquake(mag, place, time ));
+                String url = e.getString("url");
+                earthquakes.add(new Earthquake(mag, place, time, url ));
             }
         } catch (JSONException e) {
             // If an error is thrown when executing any of the above statements in the "try" block,

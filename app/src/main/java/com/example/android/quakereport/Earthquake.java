@@ -20,6 +20,7 @@ public class Earthquake {
     private double mMag;
     private String mPlace;
     private Date mTime;
+    private String mURL;
 
     public Earthquake(double mag, String place, String dateStr) {
         this.mMag = mag;
@@ -33,10 +34,11 @@ public class Earthquake {
         }
     }
 
-    public Earthquake(double mag, String place, long time) {
+    public Earthquake(double mag, String place, long time, String url) {
         this.mMag = mag;
         this.mPlace = place;
         this.mTime = new Date(time);
+        this.mURL = url;
     }
 
     public double getMagnitude() {
@@ -84,5 +86,12 @@ public class Earthquake {
             return df.format(mTime);
         else
             return "";
+    }
+
+    /**
+     * Returns the website URL to find more information about the earthquake.
+     */
+    public String getUrl() {
+        return mURL;
     }
 }
