@@ -42,13 +42,15 @@ public class EarthquakeArrayAdapter extends ArrayAdapter<Earthquake> {
 
         // Find TextView in the list_item.xml layout
         TextView magView = (TextView) listItemView.findViewById(R.id.mag_text_view);
-        TextView placeView = (TextView) listItemView.findViewById(R.id.place_text_view);
+        TextView pointView = (TextView) listItemView.findViewById(R.id.point_text_view);
+        TextView locView = (TextView) listItemView.findViewById(R.id.loc_text_view);
         TextView dateView = (TextView) listItemView.findViewById(R.id.date_text_view);
         TextView timeView = (TextView) listItemView.findViewById(R.id.time_text_view);
 
         // Set text on the TextView
         magView.setText(current.getMagStr());
-        placeView.setText(current.getPlace());
+        locView.setText(current.getNearThe());
+        pointView.setText(current.getPoint());
         dateView.setText(current.getDate());
         timeView.setText(current.getTime());
         /*

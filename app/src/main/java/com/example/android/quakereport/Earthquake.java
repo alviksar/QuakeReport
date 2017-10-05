@@ -41,6 +41,22 @@ public class Earthquake {
         return mPlace;
     }
 
+    public String getNearThe() {
+        int i = mPlace.indexOf(" of ");
+        if (i > 0)
+            return mPlace.substring(0, i+4);
+        else
+            return "Near the";
+    }
+
+    public String getPoint() {
+        int i = mPlace.indexOf(" of ");
+        if (i > 0)
+            return mPlace.substring(i+4);
+        else
+            return mPlace;
+    }
+
     public String getDate() {
         // DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         DateFormat df = new SimpleDateFormat("MMM d, yyyy");
