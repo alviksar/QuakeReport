@@ -2,6 +2,8 @@ package com.example.android.quakereport;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 /**
@@ -46,6 +49,18 @@ public class EarthquakeArrayAdapter extends ArrayAdapter<Earthquake> {
 
         // Find TextView in the list_item.xml layout
         TextView magView = (TextView) listItemView.findViewById(R.id.mag_text_view);
+
+        // Set the proper background color on the magnitude circle.
+        // Fetch the background from the TextView, which is a GradientDrawable.
+        GradientDrawable magnitudeCircle = (GradientDrawable) magView.getBackground();
+
+        // Get the appropriate background color based on the current earthquake magnitude
+        int magnitudeColor = getMagnitudeColor(current.getMagnitude());
+
+        // Set the color on the magnitude circle
+        magnitudeCircle.setColor(magnitudeColor);
+
+
         TextView pointView = (TextView) listItemView.findViewById(R.id.point_text_view);
         TextView locView = (TextView) listItemView.findViewById(R.id.offset_text_view);
         TextView dateView = (TextView) listItemView.findViewById(R.id.date_text_view);
@@ -88,5 +103,63 @@ public class EarthquakeArrayAdapter extends ArrayAdapter<Earthquake> {
        // return super.getView(position, convertView, parent);
 
 
+    }
+
+    public int getResourceId(String pVariableName, String pResourcename, String pPackageName)
+    {
+        try {
+            return mContext.getResources().getIdentifier(pVariableName, pResourcename, pPackageName);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    private int getMagnitudeColor(double magnitude) {
+        int magnitudeColorResourceId;
+        int magnitudeFloor = (int) Math.floor(magnitude);
+
+        /*
+        switch (magnitudeFloor) {
+            case 0:
+            case 1:
+                magnitudeColorResourceId = R.color.magnitude1;
+                break;
+            case 2:
+                magnitudeColorResourceId = R.color.magnitude2;
+                break;
+            case 3:
+                magnitudeColorResourceId = R.color.magnitude3;
+                break;
+            case 4:
+                magnitudeColorResourceId = R.color.magnitude4;
+                break;
+            case 5:
+                magnitudeColorResourceId = R.color.magnitude5;
+                break;
+            case 6:
+                magnitudeColorResourceId = R.color.magnitude6;
+                break;
+            case 7:
+                magnitudeColorResourceId = R.color.magnitude7;
+                break;
+            case 8:
+                magnitudeColorResourceId = R.color.magnitude8;
+                break;
+            case 9:
+                magnitudeColorResourceId = R.color.magnitude9;
+                break;
+            default:
+                magnitudeColorResourceId = R.color.magnitude10plus;
+                break;
+        }
+*/
+        if (magnitudeFloor < 10) {
+            magnitudeColorResourceId = getResourceId(String.format("magnitude%d", magnitudeFloor), "color", mContext.getPackageName());
+        }
+        else {
+            magnitudeColorResourceId = R.color.magnitude10plus;
+        }
+        return ContextCompat.getColor(getContext(), magnitudeColorResourceId);
     }
 }

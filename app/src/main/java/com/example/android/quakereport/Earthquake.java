@@ -39,6 +39,10 @@ public class Earthquake {
         this.mTime = new Date(time);
     }
 
+    public double getMagnitude() {
+        return mMag;
+    }
+
     public String getMagStr() {
         DecimalFormat formatter = new DecimalFormat("0.0");
         return formatter.format(mMag);
