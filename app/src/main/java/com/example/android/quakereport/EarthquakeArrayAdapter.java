@@ -1,8 +1,6 @@
 package com.example.android.quakereport;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -12,10 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 /**
@@ -47,7 +43,7 @@ public class EarthquakeArrayAdapter extends ArrayAdapter<Earthquake> {
         // Get the object located at this position in the list
         Earthquake current = getItem(position);
 
-        // Find TextView in the list_item.xml layout
+        // Find TextView in the my_list_item.xmlxml layout
         TextView magView = (TextView) listItemView.findViewById(R.id.mag_text_view);
 
         // Set the proper background color on the magnitude circle.
@@ -73,7 +69,7 @@ public class EarthquakeArrayAdapter extends ArrayAdapter<Earthquake> {
         dateView.setText(current.getDate());
         timeView.setText(current.getTime());
         /*
-        // Find the ImageView in the list_item.xml layout with the ID list_item_icon
+        // Find the ImageView in the my_list_item.xmlxml layout with the ID list_item_icon
         ImageView imageView = (ImageView) listItemView.findViewById(R.id.image4word);
         // Get the image resource ID from the current AndroidFlavor object and
         // set the image to iconView
