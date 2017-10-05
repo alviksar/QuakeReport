@@ -1,11 +1,8 @@
 package com.example.android.quakereport;
 
 import java.text.DateFormat;
-import java.text.FieldPosition;
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -14,40 +11,41 @@ import java.util.Date;
 
 public class Earthquake {
 
+    private double mMag;
+    private String mPlace;
+    private Date mTime;
+
     public Earthquake(double mag, String place, String dateStr) {
-        this.mag = mag;
-        this.place = place;
+        this.mMag = mag;
+        this.mPlace = place;
         try {
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            time = new Date();
-            time = df.parse(dateStr);
+            mTime = new Date();
+            mTime = df.parse(dateStr);
         } catch (ParseException pe) {
             pe.printStackTrace();
         }
     }
 
-    private double mag;
-    private String place;
-    private Date time;
-    private long updated;
-    private int tz;
-    private double longitude;
-    private double latitude;
-    private double depth;
+    public Earthquake(double mag, String place, long time) {
+        this.mMag = mag;
+        this.mPlace = place;
+        this.mTime = new Date(time);
+    }
 
     public String getMagStr() {
-        return String.valueOf(mag);
+        return String.valueOf(mMag);
     }
 
     public String getPlace() {
-        return place;
+        return mPlace;
     }
 
     public String getTimeStr() {
         // DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         DateFormat df = new SimpleDateFormat("MMM d, yyyy");
-        if (time != null)
-            return df.format(time);
+        if (mTime != null)
+            return df.format(mTime);
         else
             return "";
     }
