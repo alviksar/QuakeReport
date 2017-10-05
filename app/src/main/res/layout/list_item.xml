@@ -24,7 +24,7 @@
         android:paddingLeft="8dp">
 
         <TextView
-            android:id="@+id/loc_text_view"
+            android:id="@+id/offset_text_view"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:gravity="bottom"
@@ -38,7 +38,7 @@
             android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="64dp"
-            android:layout_below="@id/loc_text_view"
+            android:layout_below="@id/offset_text_view"
             android:gravity="top"
             android:textAppearance="?android:textAppearanceMedium"
             android:textColor="@android:color/black"

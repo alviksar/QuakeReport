@@ -1,9 +1,13 @@
 package com.example.android.quakereport;
 
+import android.support.v4.content.ContextCompat;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static java.security.AccessController.getContext;
 
 /**
  * Created by Alexey on 04.10.2017.
@@ -11,6 +15,7 @@ import java.util.Date;
 
 public class Earthquake {
 
+    private static final String LOCATION_SEPARATOR = " of ";
     private double mMag;
     private String mPlace;
     private Date mTime;
@@ -41,18 +46,18 @@ public class Earthquake {
         return mPlace;
     }
 
-    public String getNearThe() {
-        int i = mPlace.indexOf(" of ");
+    public String getNearThe(String near_the) {
+        int i = mPlace.indexOf(LOCATION_SEPARATOR);
         if (i > 0)
-            return mPlace.substring(0, i+4);
+            return mPlace.substring(0, i+LOCATION_SEPARATOR.length());
         else
-            return "Near the";
+            return near_the;
     }
 
     public String getPoint() {
-        int i = mPlace.indexOf(" of ");
+        int i = mPlace.indexOf(LOCATION_SEPARATOR);
         if (i > 0)
-            return mPlace.substring(i+4);
+            return mPlace.substring(i+LOCATION_SEPARATOR.length());
         else
             return mPlace;
     }
