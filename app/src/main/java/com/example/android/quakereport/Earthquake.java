@@ -3,6 +3,7 @@ package com.example.android.quakereport;
 import android.support.v4.content.ContextCompat;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,7 +40,8 @@ public class Earthquake {
     }
 
     public String getMagStr() {
-        return String.valueOf(mMag);
+        DecimalFormat formatter = new DecimalFormat("0.0");
+        return formatter.format(mMag);
     }
 
     public String getPlace() {
