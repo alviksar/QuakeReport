@@ -34,6 +34,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -122,24 +124,24 @@ public class NetworkFragment extends Fragment {
     /**
      * Implementation of AsyncTask that runs a network operation on a background thread.
      */
-    private class DownloadTask extends AsyncTask<String, Integer, DownloadTask.Result> {
+    private class DownloadTask extends AsyncTask<String, Integer, List<Earthquake>> {
 
-        /**
-         * Wrapper class that serves as a union of a result value and an exception. When the
-         * download task has completed, either the result value or exception can be a non-null
-         * value. This allows you to pass exceptions to the UI thread that were thrown during
-         * doInBackground().
-         */
-        class Result {
-            public String mResultValue;
-            public Exception mException;
-            public Result(String resultValue) {
-                mResultValue = resultValue;
-            }
-            public Result(Exception exception) {
-                mException = exception;
-            }
-        }
+//        /**
+//         * Wrapper class that serves as a union of a result value and an exception. When the
+//         * download task has completed, either the result value or exception can be a non-null
+//         * value. This allows you to pass exceptions to the UI thread that were thrown during
+//         * doInBackground().
+//         */
+//        class Result {
+//            public String mResultValue;
+//            public Exception mException;
+//            public Result(String resultValue) {
+//                mResultValue = resultValue;
+//            }
+//            public Result(Exception exception) {
+//                mException = exception;
+//            }
+//        }
 
         /**
          * Cancel background network operation if we do not have network connectivity.
@@ -162,21 +164,25 @@ public class NetworkFragment extends Fragment {
          * Defines work to perform on the background thread.
          */
         @Override
-        protected Result doInBackground(String... urls) {
-            Result result = null;
+        protected List<Earthquake> doInBackground(String... urls) {
+            List<Earthquake> result = null;
             if (!isCancelled() && urls != null && urls.length > 0) {
                 String urlString = urls[0];
-                try {
-                    URL url = new URL(urlString);
-                    String resultString = null; // TODO downloadUrl(url);
-                    if (resultString != null) {
-                        result = new Result(resultString);
-                    } else {
-                        throw new IOException("No response received.");
-                    }
-                } catch(Exception e) {
-                    result = new Result(e);
-                }
+
+                // Create a fake list of earthquake locations.
+                ArrayList<Earthquake> earthquakes = QueryUtils.extractEarthquakes();
+                result = earthquakes;
+//                try {
+//                    URL url = new URL(urlString);
+//                    String resultString = null; // TODO downloadUrl(url);
+//                    if (resultString != null) {
+//                        result = new Result(resultString);
+//                    } else {
+//                        throw new IOException("No response received.");
+//                    }
+//                } catch(Exception e) {
+//                    result = new Result(e);
+//                }
             }
             return result;
         }
@@ -184,24 +190,21 @@ public class NetworkFragment extends Fragment {
         /**
          * Send DownloadCallback a progress update.
          */
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-            if (values.length >= 2) {
-                mCallback.onProgressUpdate(values[0], values[1]);
-            }
-        }
+//        @Override
+//        protected void onProgressUpdate(Integer... values) {
+//            super.onProgressUpdate(values);
+//            if (values.length >= 2) {
+//                mCallback.onProgressUpdate(values[0], values[1]);
+//            }
+//        }
 
         /**
          * Updates the DownloadCallback with the result.
          */
         @Override
-        protected void onPostExecute(Result result) {
+        protected void onPostExecute(List<Earthquake> result) {
             if (result != null && mCallback != null) {
-                if (result.mException != null) {
-                    mCallback.updateFromDownload(result.mException.getMessage());
-                } else if (result.mResultValue != null) {
-                    mCallback.updateFromDownload(result.mResultValue);
+                   mCallback.updateFromDownload(result);
                 }
                 mCallback.finishDownloading();
             }
@@ -210,9 +213,9 @@ public class NetworkFragment extends Fragment {
         /**
          * Override to add special behavior for cancelled AsyncTask.
          */
-        @Override
-        protected void onCancelled(Result result) {
-        }
+//        @Override
+//        protected void onCancelled(List<Earthquake> result) {
+//        }
 
 //        /**
 //         * Given a URL, sets up a connection and gets the HTTP response body from the server.
@@ -287,6 +290,6 @@ public class NetworkFragment extends Fragment {
 //                result = new String(buffer, 0, numChars);
 //            }
 //            return result;
-//        }
-    }
+//       }
+//    }
 }
