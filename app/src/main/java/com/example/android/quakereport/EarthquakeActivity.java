@@ -61,7 +61,7 @@ public class EarthquakeActivity extends AppCompatActivity implements DownloadCal
 
         mListView.setOnItemClickListener(new EarthquakeClickListener(EarthquakeActivity.this));
 
-        mNetworkFragment = NetworkFragment.getInstance(getSupportFragmentManager(), "https://www.google.com");
+        mNetworkFragment = NetworkFragment.getInstance(getSupportFragmentManager(), QueryUtils.TOP10URL);
         mNetworkFragment.startDownload();
     }
 

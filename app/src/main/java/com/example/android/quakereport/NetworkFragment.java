@@ -39,6 +39,8 @@ import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import static com.example.android.quakereport.QueryUtils.SAMPLE_JSON_RESPONSE;
+
 /**
  * Implementation of headless Fragment that runs an AsyncTask to fetch data from the network.
  */
@@ -65,6 +67,7 @@ public class NetworkFragment extends Fragment {
                 .findFragmentByTag(NetworkFragment.TAG);
         if (networkFragment == null) {
             networkFragment = new NetworkFragment();
+            networkFragment.mUrlString = url;
             Bundle args = new Bundle();
             args.putString(URL_KEY, url);
             networkFragment.setArguments(args);
@@ -168,21 +171,13 @@ public class NetworkFragment extends Fragment {
             List<Earthquake> result = null;
             if (!isCancelled() && urls != null && urls.length > 0) {
                 String urlString = urls[0];
-
-                // Create a fake list of earthquake locations.
-                ArrayList<Earthquake> earthquakes = QueryUtils.extractEarthquakes();
+                try
+                {
+                ArrayList<Earthquake> earthquakes = QueryUtils.fetchEarthquakeData(urlString);
                 result = earthquakes;
-//                try {
-//                    URL url = new URL(urlString);
-//                    String resultString = null; // TODO downloadUrl(url);
-//                    if (resultString != null) {
-//                        result = new Result(resultString);
-//                    } else {
-//                        throw new IOException("No response received.");
-//                    }
-//                } catch(Exception e) {
-//                    result = new Result(e);
-//                }
+                } catch(Exception e) {
+                    Log.e(TAG, "No response received", e);
+                }
             }
             return result;
         }
