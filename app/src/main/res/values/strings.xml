@@ -14,6 +14,7 @@
      limitations under the License.
 -->
 <resources>
-    <string name="app_name">Quake Report</string>
-    <string name="near_the">Near the</string>
+    <string name="app_name" translatable="false">Quake Report</string>
+    <string name="near_the" translatable="false">Near the</string>
+    <string name="nothing_found" translatable="false">Nothing found.</string>
 </resources>

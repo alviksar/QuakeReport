@@ -20,6 +20,8 @@ import android.content.Loader;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,9 +39,7 @@ public class EarthquakeActivity extends AppCompatActivity
 
     private EarthquakeArrayAdapter mAdapter;
 
-    // Boolean telling us whether a download is in progress, so we don't trigger overlapping
-    // downloads with consecutive button clicks.
-    private boolean mDownloading = false;
+    private TextView mEmptyStateTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,10 @@ public class EarthquakeActivity extends AppCompatActivity
         mListView = (ListView) findViewById(R.id.list);
 
         mListView.setOnItemClickListener(new EarthquakeClickListener(EarthquakeActivity.this));
+
+        mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
+        mListView.setEmptyView(mEmptyStateTextView);
+
         // Create a new adapter that takes an empty list of earthquakes as input
         mAdapter = new EarthquakeArrayAdapter(this, R.layout.list_item, new ArrayList<Earthquake>());
 
@@ -74,7 +78,10 @@ public class EarthquakeActivity extends AppCompatActivity
         // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
         // data set. This will trigger the ListView to update.
         if (earthquakes != null && !earthquakes.isEmpty()) {
+            mEmptyStateTextView.setText("");
             mAdapter.addAll(earthquakes);
+        } else {
+            mEmptyStateTextView.setText(R.string.nothing_found);
         }
     }
 
