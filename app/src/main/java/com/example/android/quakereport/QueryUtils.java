@@ -24,10 +24,15 @@ import static com.example.android.quakereport.EarthquakeActivity.LOG_TAG;
 public final class QueryUtils {
 
     /*
+    The base request url.
+     */
+    public static final String USGS_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query";
+
+    /*
     This url  will provide you with the top 10 most recent earthquakes in the world with at least a magnitude of 6.
      */
-    public static final String TOP10URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=3&limit=100";
-
+    public static final String TOP10URL =  "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=3&limit=100";
+//                                            https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&limit=10&minmag=5&orderby=time
     /**
      * Sample JSON response for a USGS query
      */
