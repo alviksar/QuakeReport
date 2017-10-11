@@ -148,11 +148,4 @@ public class EarthquakeArrayAdapter extends ArrayAdapter<Earthquake> {
         return ContextCompat.getColor(getContext(), magnitudeColorResourceId);
     }
 
-    public void setData(List<Earthquake> data) {
-        clear();
-        if (data != null) {
-            addAll(data);
-        }
-    }
-
-}
+ }

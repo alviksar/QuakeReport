@@ -23,6 +23,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.data;
+
 
 public class EarthquakeActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<List<Earthquake>> {
@@ -55,9 +57,8 @@ public class EarthquakeActivity extends AppCompatActivity
         // so the list can be populated in the user interface
         mListView.setAdapter(mAdapter);
 
-        getLoaderManager().initLoader(1, null, this).forceLoad();
+        getLoaderManager().initLoader(1, null, this);
     }
-
 
     @Override
     public Loader<List<Earthquake>> onCreateLoader(int i, Bundle bundle) {
@@ -67,13 +68,20 @@ public class EarthquakeActivity extends AppCompatActivity
 
     @Override
     public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
-        mAdapter.setData(earthquakes);
+        // Clear the adapter of previous earthquake data
+        mAdapter.clear();
+
+        // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
+        // data set. This will trigger the ListView to update.
+        if (earthquakes != null && !earthquakes.isEmpty()) {
+            mAdapter.addAll(earthquakes);
+        }
     }
 
     @Override
     public void onLoaderReset(Loader<List<Earthquake>> loader) {
         // Loader reset, so we can clear out our existing data.
-        mAdapter.setData(new ArrayList<Earthquake>());
+        mAdapter.clear();
     }
 }
 
