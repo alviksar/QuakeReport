@@ -47,10 +47,6 @@ public class EarthquakeActivity extends AppCompatActivity
     // as necessary.
     private ListView mListView;
 
-    // Keep a reference to the NetworkFragment which owns the AsyncTask object
-    // that is used to execute network ops.
-    private NetworkFragment mNetworkFragment;
-
     private EarthquakeArrayAdapter mAdapter;
 
     // Boolean telling us whether a download is in progress, so we don't trigger overlapping
