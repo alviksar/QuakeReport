@@ -2,7 +2,6 @@ package com.example.android.quakereport;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.view.View;
 import android.widget.AdapterView;

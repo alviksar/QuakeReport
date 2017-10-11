@@ -1,7 +1,5 @@
 package com.example.android.quakereport;
 
-import org.json.JSONException;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,10 +16,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import static android.content.ContentValues.TAG;
 import static com.example.android.quakereport.EarthquakeActivity.LOG_TAG;
 
 /**
@@ -32,7 +26,7 @@ public final class QueryUtils {
     /*
     This url  will provide you with the top 10 most recent earthquakes in the world with at least a magnitude of 6.
      */
-    public static final String TOP10URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
+    public static final String TOP10URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=3&limit=100";
 
     /**
      * Sample JSON response for a USGS query
