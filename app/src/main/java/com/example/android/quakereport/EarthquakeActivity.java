@@ -16,7 +16,10 @@
 package com.example.android.quakereport;
 
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Loader;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -35,6 +38,7 @@ public class EarthquakeActivity extends AppCompatActivity
 
     public static final String LOG_TAG = EarthquakeActivity.class.getName();
 
+    private static final int EARTHQUAKE_LOADER_ID = 1;
     // Reference to the TextView showing fetched data, so we can clear it with a button
     // as necessary.
     private ListView mListView;
@@ -66,7 +70,23 @@ public class EarthquakeActivity extends AppCompatActivity
         // so the list can be populated in the user interface
         mListView.setAdapter(mAdapter);
 
-        getLoaderManager().initLoader(1, null, this);
+        ConnectivityManager cm =
+                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+
+        // If there is a network connection, fetch data
+        if (networkInfo != null && networkInfo.isConnected()) {
+            // Initialize the loader. Pass in the int ID constant defined above and pass in null for
+            // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
+            // because this activity implements the LoaderCallbacks interface).
+            getLoaderManager().initLoader(EARTHQUAKE_LOADER_ID, null, this);
+        } else {
+            // Otherwise, display error
+            // Update empty state with no connection error message
+            mProgressBar.setVisibility(View.GONE);
+            mEmptyStateTextView.setText(R.string.no_connection);
+        }
     }
 
     @Override

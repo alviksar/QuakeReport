@@ -3,4 +3,5 @@
     <string name="app_name">Quake Report</string>
     <string name="near_the" translatable="false">Недалеко от</string>
     <string name="nothing_found" translatable="false">Ничего не найдено.</string>
+    <string name="no_connection">Нет соединения с интернетом.</string>
 </resources>
