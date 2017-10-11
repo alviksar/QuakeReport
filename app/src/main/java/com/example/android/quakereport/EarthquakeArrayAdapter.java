@@ -34,12 +34,12 @@ public class EarthquakeArrayAdapter extends ArrayAdapter<Earthquake> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         // Check if the existing view is being reused, otherwise inflate the view
         View listItemView = convertView;
-        if(listItemView == null) {
+        if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
                     R.layout.list_item, parent, false);
 
-          //  int color = ContextCompat.getColor(getContext(), mBackgroundColor);
-          //  listItemView.findViewById(R.id.text_container).setBackgroundColor(color);
+            //  int color = ContextCompat.getColor(getContext(), mBackgroundColor);
+            //  listItemView.findViewById(R.id.text_container).setBackgroundColor(color);
 
         }
         // Get the object located at this position in the list
@@ -89,13 +89,12 @@ public class EarthquakeArrayAdapter extends ArrayAdapter<Earthquake> {
 
         return listItemView;
 
-       // return super.getView(position, convertView, parent);
+        // return super.getView(position, convertView, parent);
 
 
     }
 
-    public int getResourceId(String pVariableName, String pResourcename, String pPackageName)
-    {
+    public int getResourceId(String pVariableName, String pResourcename, String pPackageName) {
         try {
             return mContext.getResources().getIdentifier(pVariableName, pResourcename, pPackageName);
         } catch (Exception e) {
@@ -145,10 +144,17 @@ public class EarthquakeArrayAdapter extends ArrayAdapter<Earthquake> {
 */
         if (magnitudeFloor < 10) {
             magnitudeColorResourceId = getResourceId(String.format("magnitude%d", magnitudeFloor), "color", mContext.getPackageName());
-        }
-        else {
+        } else {
             magnitudeColorResourceId = R.color.magnitude10plus;
         }
         return ContextCompat.getColor(getContext(), magnitudeColorResourceId);
     }
+
+    public void setData(List<Earthquake> data) {
+        clear();
+        if (data != null) {
+            addAll(data);
+        }
+    }
+
 }

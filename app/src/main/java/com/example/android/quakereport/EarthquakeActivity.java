@@ -15,8 +15,10 @@
  */
 package com.example.android.quakereport;
 
+import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.Loader;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -36,7 +38,8 @@ import java.util.List;
 import static android.R.attr.data;
 import static android.R.attr.name;
 
-public class EarthquakeActivity extends AppCompatActivity implements DownloadCallback {
+public class EarthquakeActivity extends AppCompatActivity
+        implements LoaderManager.LoaderCallbacks<List<Earthquake>> {
 
     public static final String LOG_TAG = EarthquakeActivity.class.getName();
 
@@ -70,77 +73,27 @@ public class EarthquakeActivity extends AppCompatActivity implements DownloadCal
         // so the list can be populated in the user interface
         mListView.setAdapter(mAdapter);
 
-        mNetworkFragment = NetworkFragment.getInstance(getSupportFragmentManager(), QueryUtils.TOP10URL);
-        mNetworkFragment.startDownload();
+        getLoaderManager().initLoader(1, null, this).forceLoad();
     }
 
 
-    private void startDownload() {
-        if (!mDownloading && mNetworkFragment != null) {
-            // Execute the async download.
-            mNetworkFragment.startDownload();
-            mDownloading = true;
-        }
+    @Override
+    public Loader<List<Earthquake>> onCreateLoader(int i, Bundle bundle) {
+        // Create a new loader for the given URL
+        return new EarthquakeLoader(this, QueryUtils.TOP10URL);
     }
 
     @Override
-    public void updateFromDownload(List<Earthquake> result) {
-
-        // Clear the adapter of previous earthquake data
-        mAdapter.clear();
-
-        // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
-        // data set. This will trigger the ListView to update.
-        if (result != null && !result.isEmpty()) {
-            mAdapter.addAll(result);
-        }
-/*
-         // Create a new {@link ArrayAdapter} of earthquakes
-        EarthquakeArrayAdapter adapter = new EarthquakeArrayAdapter(
-                this, R.layout.list_item, result);
-
-        // Set the adapter on the {@link ListView}
-        // so the list can be populated in the user interface
-        mListView.setAdapter(adapter);
-*/
-        else {
-            Log.e(LOG_TAG, getString(R.string.connection_error));
-        }
+    public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
+        mAdapter.setData(earthquakes);
     }
 
     @Override
-    public NetworkInfo getActiveNetworkInfo() {
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        return networkInfo;
+    public void onLoaderReset(Loader<List<Earthquake>> loader) {
+        // Loader reset, so we can clear out our existing data.
+        mAdapter.setData(new ArrayList<Earthquake>());
     }
-
-    @Override
-    public void finishDownloading() {
-        mDownloading = false;
-        if (mNetworkFragment != null) {
-            mNetworkFragment.cancelDownload();
-        }
-    }
-
-    @Override
-    public void onProgressUpdate(int progressCode, int percentComplete) {
-        switch (progressCode) {
-            // You can add UI behavior for progress updates here.
-            case Progress.ERROR:
-                break;
-            case Progress.CONNECT_SUCCESS:
-                break;
-            case Progress.GET_INPUT_STREAM_SUCCESS:
-                break;
-            case Progress.PROCESS_INPUT_STREAM_IN_PROGRESS:
-                // mDataText.setText("" + percentComplete + "%");
-                break;
-            case Progress.PROCESS_INPUT_STREAM_SUCCESS:
-                break;
-        }
-    }
-
-
 }
+
+
+
