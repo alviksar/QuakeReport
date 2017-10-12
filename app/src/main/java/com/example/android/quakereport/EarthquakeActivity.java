@@ -108,6 +108,10 @@ public class EarthquakeActivity extends AppCompatActivity
                 getString(R.string.settings_order_by_default)
         );
 
+        String numOfRecords = sharedPrefs.getString(
+                getString(R.string.settings_num_of_records_key),
+                getString(R.string.settings_num_of_records_default));
+
         Uri baseUri = Uri.parse(QueryUtils.USGS_REQUEST_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
@@ -115,7 +119,7 @@ public class EarthquakeActivity extends AppCompatActivity
         uriBuilder.appendQueryParameter("eventtype", "earthquake");
         uriBuilder.appendQueryParameter("minmag", minMagnitude);
         uriBuilder.appendQueryParameter("orderby", orderBy);
-        uriBuilder.appendQueryParameter("limit", "30");
+        uriBuilder.appendQueryParameter("limit", numOfRecords);
 
 // format=geojson&eventtype=earthquake&orderby=time&minmag=3&limit=100
         return new EarthquakeLoader(this, uriBuilder.toString());

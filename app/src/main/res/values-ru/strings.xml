@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Quake Report</string>
-    <string name="near_the" translatable="false">Недалеко от</string>
     <string name="nothing_found" translatable="false">Ничего не найдено.</string>
     <string name="no_connection">Нет соединения с интернетом.</string>
+    <string name="settings_min_magnitude_label">Минимальная магнитуда</string>
+    <string name="settings_order_by_label">Сортировка по</string>
+    <string name="settings_order_by_magnitude_label">магнитуде</string>
+    <string name="settings_order_by_most_recent_label">времени</string>
+    <string name="settings_title">Настройки программы</string>
+    <string name="settings_menu_item">Параметры</string>
+    <string name="settings_num_of_records_label">Количество записей</string>
 </resources>

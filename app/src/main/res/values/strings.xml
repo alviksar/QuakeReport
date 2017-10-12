@@ -41,4 +41,10 @@
     <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
     <string name="settings_order_by_most_recent_label">Most Recent</string>
     <string name="settings_order_by_most_recent_value" translatable="false">time</string>
+
+
+    <!-- Strings For Nuber of records Preference [CHAR LIMIT=30] -->
+    <string name="settings_num_of_records_label">Number Of Records</string>
+    <string name="settings_num_of_records_key" translatable="false">num_of_records</string>
+    <string name="settings_num_of_records_default" translatable="false">10</string>
 </resources>
